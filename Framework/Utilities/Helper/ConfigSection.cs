@@ -1,13 +1,13 @@
 //--------------------------------------------------
-// <copyright file="ConfigSection.cs" company="Cognizant">
-//  Copyright 2022 Cognizant, All rights Reserved
+// <copyright file="ConfigSection.cs" company="MAQS">
+//  Copyright 2022 MAQS, All rights Reserved
 // </copyright>
 // <summary>Configuration sections</summary>
 //--------------------------------------------------
 
 using System;
 
-namespace CognizantSoftvision.Maqs.Utilities.Helper
+namespace Maqs.Utilities.Helper
 {
     /// <summary>
     /// The configuration sections

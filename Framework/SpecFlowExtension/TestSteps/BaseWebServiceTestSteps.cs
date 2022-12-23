@@ -1,14 +1,14 @@
 ﻿//--------------------------------------------------
-// <copyright file="BaseWebServiceTestSteps.cs" company="Cognizant">
-//  Copyright 2022 Cognizant, All rights Reserved
+// <copyright file="BaseWebServiceTestSteps.cs" company="MAQS">
+//  Copyright 2022 MAQS, All rights Reserved
 // </copyright>
 // <summary>Base teststeps code for tests using web services</summary>
 //--------------------------------------------------
-using CognizantSoftvision.Maqs.BaseWebServiceTest;
+using Maqs.BaseWebServiceTest;
 using TechTalk.SpecFlow;
-using MaqsWeb = CognizantSoftvision.Maqs.BaseWebServiceTest.BaseWebServiceTest;
+using MaqsWeb = Maqs.BaseWebServiceTest.BaseWebServiceTest;
 
-namespace CognizantSoftvision.Maqs.SpecFlow.TestSteps
+namespace Maqs.SpecFlow.TestSteps
 {
     /// <summary>
     /// Base for web service TestSteps classes

@@ -1,13 +1,13 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ConfigTests.cs" company="Cognizant">
-//   Copyright 2022 Cognizant, All rights Reserved
+// <copyright file="ConfigTests.cs" company="MAQS">
+//   Copyright 2022 MAQS, All rights Reserved
 // </copyright>
 // <summary>
 //   Class for config unit tests.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-using CognizantSoftvision.Maqs.Utilities.Helper;
+using Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;

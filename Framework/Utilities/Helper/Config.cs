@@ -1,9 +1,10 @@
 ﻿//--------------------------------------------------
-// <copyright file="Config.cs" company="Cognizant">
-//  Copyright 2022 Cognizant, All rights Reserved
+// <copyright file="Config.cs" company="MAQS">
+//  Copyright 2022 MAQS, All rights Reserved
 // </copyright>
 // <summary>Helper class for getting application configuration values</summary>
 //--------------------------------------------------
+using Maqs.Utilities.Helper.Exceptions;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using System;
@@ -16,7 +17,7 @@ using System.Text;
 using System.Xml.Linq;
 using VSTestContext = Microsoft.VisualStudio.TestTools.UnitTesting.TestContext;
 
-namespace CognizantSoftvision.Maqs.Utilities.Helper
+namespace Maqs.Utilities.Helper
 {
     /// <summary>
     /// Config class
@@ -530,13 +531,13 @@ namespace CognizantSoftvision.Maqs.Utilities.Helper
             // Check for base config
             string value = compositeConfig.GetValue(path);
 
-            // Fall back to the old Magenic MAQS section if the newer global section is not found
+            // Fall back to the old MAQS section if the newer global section is not found
             if (string.IsNullOrEmpty(value) && path.Length > 0 && path[0].Equals(DEFAULTMAQSSECTION.ToString(), StringComparison.CurrentCultureIgnoreCase))
             {
                 string[] newPath = (string[])path.Clone();
 
 #pragma warning disable CS0618 // Type or member is obsolete
-                newPath[0] = ConfigSection.MagenicMaqs.ToString().ToLower();
+                newPath[0] = ConfigSection.GlobalMaqs.ToString().ToLower();
 #pragma warning restore CS0618 // Type or member is obsolete
 
                 value = compositeConfig.GetValue(newPath);

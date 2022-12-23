@@ -1,17 +1,17 @@
 ﻿//--------------------------------------------------
-// <copyright file="LazyMobileElement.cs" company="Cognizant">
-//  Copyright 2022 Cognizant, All rights Reserved
+// <copyright file="LazyMobileElement.cs" company="MAQS">
+//  Copyright 2022 MAQS, All rights Reserved
 // </copyright>
 // <summary>This is the LazyMobileElement class</summary>
 //--------------------------------------------------
-using CognizantSoftvision.Maqs.BaseSeleniumTest.Extensions;
+using Maqs.BaseSeleniumTest.Extensions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 
-namespace CognizantSoftvision.Maqs.BaseAppiumTest
+namespace Maqs.BaseAppiumTest
 {
     /// <summary>
     /// Driver for dynamically finding and interacting with elements

@@ -1,14 +1,14 @@
 ﻿//--------------------------------------------------
-// <copyright file="BaseDatabaseTestSteps.cs" company="Cognizant">
-//  Copyright 2022 Cognizant, All rights Reserved
+// <copyright file="BaseDatabaseTestSteps.cs" company="MAQS">
+//  Copyright 2022 MAQS, All rights Reserved
 // </copyright>
 // <summary>Base teststeps code for tests using databases</summary>
 //--------------------------------------------------
-using CognizantSoftvision.Maqs.BaseDatabaseTest;
+using Maqs.BaseDatabaseTest;
 using TechTalk.SpecFlow;
-using MaqsDatabase = CognizantSoftvision.Maqs.BaseDatabaseTest.BaseDatabaseTest;
+using MaqsDatabase = Maqs.BaseDatabaseTest.BaseDatabaseTest;
 
-namespace CognizantSoftvision.Maqs.SpecFlow.TestSteps
+namespace Maqs.SpecFlow.TestSteps
 {
     /// <summary>
     /// Base for database TestSteps classes

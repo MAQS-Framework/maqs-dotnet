@@ -1,13 +1,13 @@
 ﻿//--------------------------------------------------
-// <copyright file="PostgreSqlProvider.cs" company="Cognizant">
-//  Copyright 2022 Cognizant, All rights Reserved
+// <copyright file="PostgreSqlProvider.cs" company="MAQS">
+//  Copyright 2022 MAQS, All rights Reserved
 // </copyright>
 // <summary>PostgreSqlProvider class</summary>
 //--------------------------------------------------
 
 using Npgsql;
 
-namespace CognizantSoftvision.Maqs.BaseDatabaseTest.Providers
+namespace Maqs.BaseDatabaseTest.Providers
 {
     /// <summary>
     /// The POSTGRE SQL provider.

@@ -1,11 +1,11 @@
 ﻿//--------------------------------------------------
-// <copyright file="SeleniumUtilities.cs" company="Cognizant">
-//  Copyright 2022 Cognizant, All rights Reserved
+// <copyright file="SeleniumUtilities.cs" company="MAQS">
+//  Copyright 2022 MAQS, All rights Reserved
 // </copyright>
 // <summary>Utilities class for generic selenium methods</summary>
 //--------------------------------------------------
-using CognizantSoftvision.Maqs.BaseSeleniumTest.Extensions;
-using CognizantSoftvision.Maqs.Utilities.Logging;
+using Maqs.BaseSeleniumTest.Extensions;
+using Maqs.Utilities.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.Events;
 using Selenium.Axe;
@@ -14,7 +14,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 
-namespace CognizantSoftvision.Maqs.BaseSeleniumTest
+namespace Maqs.BaseSeleniumTest
 {
     /// <summary>
     /// Static class for the selenium utilities
@@ -165,6 +165,116 @@ namespace CognizantSoftvision.Maqs.BaseSeleniumTest
             return path;
         }
 
+        /// <summary>
+        /// Get the web driver from a web element
+        /// </summary>
+        /// <param name="element">The web element</param>
+        /// <returns>The web driver</returns>
+        public static IWebDriver WebElementToWebDriver(IWebElement element)
+        {
+            // Handle lazy elements differently 
+            if (element is AbstractLazyIWebElement)
+            {
+                var el = element as AbstractLazyIWebElement;
+                EventFiringWebDriver eventfir = el.WebDriver as EventFiringWebDriver;
+
+                if (eventfir != null)
+                {
+                    return eventfir.WrappedDriver;
+                }
+
+                return el.WebDriver;
+            }
+
+            // Extract the web driver from the element
+            IWebDriver driver;
+
+            // Get the parent driver - this is a protected property so we need to user reflection to access it
+            var eventFiringPropertyInfo = element.GetType().GetProperty("ParentDriver", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetProperty);
+
+            if (eventFiringPropertyInfo != null)
+            {
+                // This means we are using an event firing web driver
+                driver = (IWebDriver)eventFiringPropertyInfo.GetValue(element, null);
+            }
+            else
+            {
+                // We failed to get the event firing web driver so they to get the wrapped web driver
+                var propertyInfo = element.GetType().GetProperty("WrappedElement");
+
+                if (propertyInfo != null)
+                {
+                    // This means we are likely using an event firing web driver
+                    var value = (IWebElement)propertyInfo.GetValue(element, null);
+                    driver = ((IWrapsDriver)value).WrappedDriver;
+                }
+                else
+                {
+                    driver = ((IWrapsDriver)element).WrappedDriver;
+                }
+            }
+
+            return driver;
+        }
+
+        /// <summary>
+        /// Gets the Screenshot Format to save images
+        /// </summary>
+        /// <returns>Desired ImageFormat Type</returns>
+        public static ScreenshotImageFormat GetScreenShotFormat()
+        {
+            switch (SeleniumConfig.GetImageFormat().ToUpper())
+            {
+                case "BMP":
+                    return ScreenshotImageFormat.Bmp;
+                case "GIF":
+                    return ScreenshotImageFormat.Gif;
+                case "JPEG":
+                    return ScreenshotImageFormat.Jpeg;
+                case "PNG":
+                    return ScreenshotImageFormat.Png;
+                case "TIFF":
+                    return ScreenshotImageFormat.Tiff;
+                default:
+                    throw new ArgumentException($"ImageFormat '{SeleniumConfig.GetImageFormat()}' is not a valid option");
+            }
+        }
+
+        /// <summary>
+        /// Make sure the web driver is shut down
+        /// </summary>
+        /// <param name="driver">The web driver</param>
+        public static void KillDriver(this IWebDriver driver)
+        {
+            try
+            {
+                driver?.Close();
+            }
+            finally
+            {
+                driver?.Quit();
+            }
+        }
+
+        /// <summary>
+        /// Set the script and page timeouts using the default configuration timeout
+        /// </summary>
+        /// <param name="driver">Driver who's timeouts you want set</param>
+        public static void SetTimeouts(IWebDriver driver)
+        {
+            SetTimeouts(driver, SeleniumConfig.GetTimeoutTime());
+        }
+
+        /// <summary>
+        /// Set the script and page timeouts
+        /// </summary>
+        /// <param name="driver">Driver who's timeouts you want set</param>
+        /// <param name="timeoutTime">Page load and JavaScript timeouts</param>
+        public static void SetTimeouts(IWebDriver driver, TimeSpan timeoutTime)
+        {
+            driver.Manage().Timeouts().PageLoad = timeoutTime;
+            driver.Manage().Timeouts().AsynchronousJavaScript = timeoutTime;
+        }
 
         /// <summary>
         /// Create a HTML accessibility report for an entire web page
@@ -439,117 +549,6 @@ namespace CognizantSoftvision.Maqs.BaseSeleniumTest
         public static IWebDriver SearchContextToWebDriver(ISearchContext searchContext)
         {
             return (searchContext is IWebDriver driver) ? driver : WebElementToWebDriver((IWebElement)searchContext);
-        }
-
-        /// <summary>
-        /// Get the web driver from a web element
-        /// </summary>
-        /// <param name="element">The web element</param>
-        /// <returns>The web driver</returns>
-        public static IWebDriver WebElementToWebDriver(IWebElement element)
-        {
-            // Handle lazy elements differently 
-            if (element is AbstractLazyIWebElement)
-            {
-                var el = element as AbstractLazyIWebElement;
-                EventFiringWebDriver eventfir = el.WebDriver as EventFiringWebDriver;
-
-                if (eventfir != null)
-                {
-                    return eventfir.WrappedDriver;
-                }
-
-                return el.WebDriver;
-            }
-
-            // Extract the web driver from the element
-            IWebDriver driver;
-
-            // Get the parent driver - this is a protected property so we need to user reflection to access it
-            var eventFiringPropertyInfo = element.GetType().GetProperty("ParentDriver", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetProperty);
-
-            if (eventFiringPropertyInfo != null)
-            {
-                // This means we are using an event firing web driver
-                driver = (IWebDriver)eventFiringPropertyInfo.GetValue(element, null);
-            }
-            else
-            {
-                // We failed to get the event firing web driver so they to get the wrapped web driver
-                var propertyInfo = element.GetType().GetProperty("WrappedElement");
-
-                if (propertyInfo != null)
-                {
-                    // This means we are likely using an event firing web driver
-                    var value = (IWebElement)propertyInfo.GetValue(element, null);
-                    driver = ((IWrapsDriver)value).WrappedDriver;
-                }
-                else
-                {
-                    driver = ((IWrapsDriver)element).WrappedDriver;
-                }
-            }
-
-            return driver;
-        }
-
-        /// <summary>
-        /// Gets the Screenshot Format to save images
-        /// </summary>
-        /// <returns>Desired ImageFormat Type</returns>
-        public static ScreenshotImageFormat GetScreenShotFormat()
-        {
-            switch (SeleniumConfig.GetImageFormat().ToUpper())
-            {
-                case "BMP":
-                    return ScreenshotImageFormat.Bmp;
-                case "GIF":
-                    return ScreenshotImageFormat.Gif;
-                case "JPEG":
-                    return ScreenshotImageFormat.Jpeg;
-                case "PNG":
-                    return ScreenshotImageFormat.Png;
-                case "TIFF":
-                    return ScreenshotImageFormat.Tiff;
-                default:
-                    throw new ArgumentException($"ImageFormat '{SeleniumConfig.GetImageFormat()}' is not a valid option");
-            }
-        }
-
-        /// <summary>
-        /// Make sure the web driver is shut down
-        /// </summary>
-        /// <param name="driver">The web driver</param>
-        public static void KillDriver(this IWebDriver driver)
-        {
-            try
-            {
-                driver?.Close();
-            }
-            finally
-            {
-                driver?.Quit();
-            }
-        }
-
-        /// <summary>
-        /// Set the script and page timeouts using the default configuration timeout
-        /// </summary>
-        /// <param name="driver">Driver who's timeouts you want set</param>
-        public static void SetTimeouts(IWebDriver driver)
-        {
-            SetTimeouts(driver, SeleniumConfig.GetTimeoutTime());
-        }
-
-        /// <summary>
-        /// Set the script and page timeouts
-        /// </summary>
-        /// <param name="driver">Driver who's timeouts you want set</param>
-        /// <param name="timeoutTime">Page load and JavaScript timeouts</param>
-        public static void SetTimeouts(IWebDriver driver, TimeSpan timeoutTime)
-        {
-            driver.Manage().Timeouts().PageLoad = timeoutTime;
-            driver.Manage().Timeouts().AsynchronousJavaScript = timeoutTime;
         }
 
         /// <summary>

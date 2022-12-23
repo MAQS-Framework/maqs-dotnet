@@ -1,11 +1,11 @@
 ﻿//--------------------------------------------------
-// <copyright file="WebServiceDriverOverrides.cs" company="Cognizant">
-//  Copyright 2022 Cognizant, All rights Reserved
+// <copyright file="WebServiceDriverOverrides.cs" company="MAQS">
+//  Copyright 2022 MAQS, All rights Reserved
 // </copyright>
 // <summary>Web service override unit tests</summary>
 //--------------------------------------------------
-using CognizantSoftvision.Maqs.BaseWebServiceTest;
-using CognizantSoftvision.Maqs.Utilities.Helper;
+using Maqs.BaseWebServiceTest;
+using Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -23,12 +23,12 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// Base test url
         /// </summary>
-        private const string BaseUrl = "https://github.com/CognizantOpenSource";
+        private const string BaseUrl = "https://github.com/MAQS-Framework";
 
         /// <summary>
         /// Expected updated url
         /// </summary>
-        private const string UpdatedUrl = "https://github.com/CognizantOpenSource/maqs-dotnet";
+        private const string UpdatedUrl = "https://github.com/MAQS-Framework/maqs-dotnet";
 
         /// <summary>
         /// Timeout override
@@ -77,7 +77,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void OverrideWorksForFactory()
         {
-            HttpClient factoryClient = CognizantSoftvision.Maqs.BaseWebServiceTest.HttpClientFactory.GetDefaultClient();
+            HttpClient factoryClient = Maqs.BaseWebServiceTest.HttpClientFactory.GetDefaultClient();
             Assert.AreEqual(WebServiceConfig.GetWebServiceUri() + "/", factoryClient.BaseAddress.ToString());
         }
 

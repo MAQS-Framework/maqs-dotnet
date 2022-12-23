@@ -1,15 +1,15 @@
 ﻿//--------------------------------------------------
-// <copyright file="BaseAppiumTestSteps.cs" company="Cognizant">
-//  Copyright 2022 Cognizant, All rights Reserved
+// <copyright file="BaseAppiumTestSteps.cs" company="MAQS">
+//  Copyright 2022 MAQS, All rights Reserved
 // </copyright>
 // <summary>Base teststeps code for tests using appium</summary>
 //--------------------------------------------------
-using CognizantSoftvision.Maqs.BaseAppiumTest;
+using Maqs.BaseAppiumTest;
 using OpenQA.Selenium.Appium;
 using TechTalk.SpecFlow;
-using MaqsAppium = CognizantSoftvision.Maqs.BaseAppiumTest.BaseAppiumTest;
+using MaqsAppium = Maqs.BaseAppiumTest.BaseAppiumTest;
 
-namespace CognizantSoftvision.Maqs.SpecFlow.TestSteps
+namespace Maqs.SpecFlow.TestSteps
 {
     /// <summary>
     /// Base for appium TestSteps classes

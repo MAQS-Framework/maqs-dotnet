@@ -1,11 +1,11 @@
 ﻿//-----------------------------------------------------
-// <copyright file="PageDriverTests.cs" company="Cognizant">
-//  Copyright 2022 Cognizant, All rights Reserved
+// <copyright file="PageDriverTests.cs" company="MAQS">
+//  Copyright 2022 MAQS, All rights Reserved
 // </copyright>
 // <summary>Test the page driver</summary>
 //-----------------------------------------------------
-using CognizantSoftvision.Maqs.BasePlaywrightTest;
-using CognizantSoftvision.Maqs.Utilities.Helper;
+using Maqs.BasePlaywrightTest;
+using Maqs.Utilities.Helper;
 using Microsoft.Playwright;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -246,7 +246,7 @@ namespace PlaywrightTests
         [TestMethod]
         public void ContentTest()
         {
-            Assert.IsTrue(this.PageDriver.Content().Contains("Softvision"));
+            Assert.IsTrue(this.PageDriver.Content().Contains("MAQS"));
         }
 
         /// <summary>
@@ -338,7 +338,7 @@ namespace PlaywrightTests
         [TestMethod]
         public void InnerHTMLTest()
         {
-            Assert.IsTrue(this.PageDriver.InnerHTML(Footer).Contains("Softvision"));
+            Assert.IsTrue(this.PageDriver.InnerHTML(Footer).Contains("MAQS"));
         }
 
         /// <summary>
@@ -347,7 +347,7 @@ namespace PlaywrightTests
         [TestMethod]
         public void InnerTextTest()
         {
-            Assert.IsTrue(this.PageDriver.InnerText(Footer).Contains("Softvision"));
+            Assert.IsTrue(this.PageDriver.InnerText(Footer).Contains("MAQS"));
         }
 
         /// <summary>
@@ -467,7 +467,7 @@ namespace PlaywrightTests
         [TestMethod]
         public void TitleTest()
         {
-            Assert.AreEqual("Automation - Magenic Automation Test Site", this.PageDriver.Title());
+            Assert.AreEqual("Automation - MAQS Automation Test Site", this.PageDriver.Title());
         }
 
         /// <summary>

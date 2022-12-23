@@ -1,11 +1,11 @@
 ﻿//--------------------------------------------------
-// <copyright file="TestCategories.cs" company="Cognizant">
-//  Copyright 2022 Cognizant, All rights Reserved
+// <copyright file="TestCategories.cs" company="MAQS">
+//  Copyright 2022 MAQS, All rights Reserved
 // </copyright>
 // <summary>Test category constants</summary>
 //--------------------------------------------------
 
-namespace CognizantSoftvision.Maqs.Utilities.Helper
+namespace Maqs.Utilities.Helper
 {
     /// <summary>
     ///  Test category constants
